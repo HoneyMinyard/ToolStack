@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Commerce Tool Stack & Workflow Presentation</title>
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --primary: #38bdf8;
+      --primary-hover: #0284c7;
+      --accent-badge: #818cf8;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --dropdown-bg: #0f172a;
+      --border-radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      padding: 2rem 1rem;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+      background: linear-gradient(to right, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .workflow-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .process-row {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 1.5rem;
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 868px) {
+      .process-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .process-step {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      border-right: 2px solid var(--card-border);
+      padding-right: 1.25rem;
+    }
+
+    @media (max-width: 868px) {
+      .process-step {
+        border-right: none;
+        border-bottom: 2px solid var(--card-border);
+        padding-right: 0;
+        padding-bottom: 1rem;
+      }
+    }
+
+    .step-number {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-badge);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+
+    .step-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .step-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+
+    .tools-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .tier-group {
+      margin-bottom: 1rem;
+    }
+
+    .tier-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .tier-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.25rem;
+      border-bottom: 1px dashed var(--card-border);
+    }
+
+    details {
+      background-color: var(--dropdown-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    details[open] {
+      border-color: var(--primary);
+    }
+
+    summary {
+      padding: 0.85rem 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-main);
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+
+    summary:hover {
+      background-color: rgba(56, 189, 248, 0.05);
+      color: var(--primary);
+    }
+
+    summary::after {
+      content: '►';
+      font-size: 0.75rem;
+      transition: transform 0.2s ease;
+      color: var(--text-muted);
+    }
+
+    details[open] summary::after {
+      transform: rotate(90deg);
+      color: var(--primary);
+    }
+
+    .tool-content {
+      padding: 1rem;
+      border-top: 1px solid var(--card-border);
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .tool-content p {
+      margin-bottom: 0.75rem;
+    }
+
+    .tool-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .tool-content ul {
+      margin-left: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .tool-content li {
+      margin-bottom: 0.25rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 4px;
+      background-color: rgba(56, 189, 248, 0.15);
+      color: var(--primary);
+      margin-left: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>E-Commerce Process Tool Stack</h1>
+      <p>Chronological Workflow & Tooling Analysis</p>
+    </header>
+
+    <div class="workflow-grid">
+
+      <!-- Step 1: Website Building -->
+      <div class="process-row">
+        <div class="process-step">
+          <span class="step-number">Step 01</span>
+          <h2 class="step-title">Website Building</h2>
+          <p class="step-desc">Core site builders, catalog managers, and static site options categorized by difficulty and capability.</p>
+        </div>
+        <div class="tools-container">
+
+          <!-- Basics -->
+          <div class="tier-group">
+            <h3 class="tier-title">Basics (Standalone Builders)</h3>
+
+            <details>
+              <summary>Wix Site Builder</summary>
+              <div class="tool-content">
+                <p>Provides templates and extensive creative customization options. Wix hosts media directly on their servers, eliminating the need for separate HTML image hosting.</p>
+                <p><strong>Inventory & Checkout:</strong> Supports individual manual uploads or bulk CSV imports (though the CSV template can be messy/confusing). Customers can build carts and checkout, generating automated invoices for both buyer and seller. Requires merchant registration to activate payment processing.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary>Google Sites</summary>
+              <div class="tool-content">
+                <p>Free and simple UI for beginners. Supports photo galleries, blogs, and hyperlinks, but features limited design flexibility and default font selection unless navigating preset themes.</p>
+                <p><strong>E-Commerce Capabilities:</strong> Lacks native bulk product management. Creating a store requires manual setup without standard product detail pages. Integrates Google Workspace apps (Sheets, Calendar, Forms) by embedding them directly as-is on the page. Uses a standard Google Sites URL unless a custom domain is attached.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary>Canva Websites</summary>
+              <div class="tool-content">
+                <p>Free static website builder with pre-made templates. Functions similarly to publishing a document as an image-like layout, meaning buttons and images lack interactive website behaviors.</p>
+                <p><strong>Best Use:</strong> Suited for basic, small-scale product catalogs rather than multi-product detail pages. Offers responsive layout toggles for PC and phone viewports, though default URLs cannot be customized.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary>WordPress</summary>
+              <div class="tool-content">
+                <p>Free, highly customizable platform with continuous page creation, media embeds, Crowdsignal, and payment integrations. Features a steeper learning curve for non-technical users.</p>
+                <p><strong>E-Commerce Capabilities:</strong> Requires the free <em>WooCommerce</em> plugin for structured product listings, categories, and automated inventory management. Without plugins, items must be added manually as individual blog posts without stock controls.</p>
+              </div>
+            </details>
+          </div>
+
+          <!-- Semi-Automated -->
+          <div class="tier-group">
+            <h3 class="tier-title">Semi-Automated (Google Sheets Connected)</h3>
+
+            <details>
+              <summary>Sheet Rocket</summary>
+              <div class="tool-content">
+                <p>Connects directly to Google Sheets to display products with promotional badges (Sale, New Arrival, etc.). Customers can build orders and checkout with custom payment instructions (no direct native payment gateway).</p>
+                <p><strong>Key Limitations:</strong> Plain invoice emails sent to both parties. Requires specific column headers. Free tiers break if formulas exist within sheets. Customization is limited to a single accent color (no logo support in header/footer) and restricts items to 1 HTML image URL. Includes embeddable store widgets for external sites.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary>Shop.Link</summary>
+              <div class="tool-content">
+                <p>Improves upon Sheet Rocket by adding multi-photo support per product via a built-in media library that generates direct URLs. Features built-in analytics, checkout customization, order status tracking, and automated customer emails.</p>
+                <p><strong>Key Limitations:</strong> Google Sheet formulas are not recognized. Design customization remains restricted to one solid color theme (though logo placement is supported). Free plan caps volume at 50 total orders per month (including canceled orders).</p>
+              </div>
+            </details>
+
+            <details>
+              <summary>SpreadSimple</summary>
+              <div class="tool-content">
+                <p>Combines features of Sheet Rocket and Shop.Link. Supports multiple product photos (utilizing Google Drive hosting tutorials) and background color customization.</p>
+                <p><strong>Key Advantages:</strong> Allows multi-page structures (About, Shop Policies, Contact) and offers integration Add-Ons for Google Maps, HubSpot, Notion, WhatsApp, YouTube, PayPal, and Stripe.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary>Shearables</summary>
+              <div class="tool-content">
+                <p>Website and widget builder offering styling controls over fonts, colors, and text sizing. Flexible content parameters based on recognized column headers.</p>
+                <p><strong>Key Limitations:</strong> Formulas in connected sheets render as blank text. Free plan limits account to 1 project/widget without add-on access or custom domain routing.</p>
+              </div>
+            </details>
+          </div>
+
+          <!-- Almost Convenient -->
+          <div class="tier-group">
+            <h3 class="tier-title">Almost Convenient (AI & Custom Static)</h3>
+
+            <details>
+              <summary>ChatGPT (Static Code Generation)</summary>
+              <div class="tool-content">
+                <p>Generates static HTML/CSS/JS frontend code based on detailed prompts. Can be configured to connect directly to Google Sheets for real-time frontend updates.</p>
+                <p><strong>Tradeoffs:</strong> Requires trial-and-error iterations and lacks live visual previews during build. Form submissions require external backend endpoints or API services to process data without an active web server.</p>
+              </div>
+            </details>
+
+            <details>
+              <summary>Static Website Generators (Hugo.io & GitHub)</summary>
+              <div class="tool-content">
+                <p><strong>Hugo.io:</strong> Fast, command-line static site generator using templates. Requires technical coding knowledge to configure and maintain.</p>
+                <p><strong>GitHub:</strong> Hosts repository source code and frameworks used by static generators like Hugo.</p>
+              </div>
+            </details>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Step 2: HTML Image Hosting -->
+      <div class="process-row">
+        <div class="process-step">
+          <span class="step-number">Step 02</span>
+          <h2 class="step-title">HTML Image Hosting</h2>
+          <p class="step-desc">Public image hosting repositories needed to serve direct media URLs for custom and semi-automated sites.</p>
+        </div>
+        <div class="tools-container">
+
+          <details>
+            <summary>Imgur</summary>
+            <div class="tool-content">
+              <p>Mainstream image platform offering consistent visual quality. Requires image uploads to be public to function reliably across third-party site code.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Pinterest</summary>
+            <div class="tool-content">
+              <p>Organizes assets into board structures. Images must remain set to public to allow external HTML embedding, with quality degradation occurring on unsharp source files.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Google Drive</summary>
+            <div class="tool-content">
+              <p>Provides strong storage capacity and asset management. Note: Certain static website platforms fail to parse Google Drive direct image URLs properly.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>ImgBB</summary>
+            <div class="tool-content">
+              <p>Popular free host supporting unlimited uploads up to 35MB per file, custom auto-deletion timers, and album organization.</p>
+              <p><strong>Note:</strong> Generated URLs typically redirect back to the ImgBB landing page rather than serving isolated raw image files.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>GitHub Repository</summary>
+            <div class="tool-content">
+              <p>Free, public image hosting solution providing direct raw HTML image links without strict size restrictions or quality compression.</p>
+            </div>
+          </details>
+
+        </div>
+      </div>
+
+      <!-- Step 3: Website Hosting -->
+      <div class="process-row">
+        <div class="process-step">
+          <span class="step-number">Step 03</span>
+          <h2 class="step-title">Website Hosting</h2>
+          <p class="step-desc">Deployment and domain routing infrastructure.</p>
+        </div>
+        <div class="tools-container">
+
+          <details>
+            <summary>Cloudflare Pages</summary>
+            <div class="tool-content">
+              <p>Provides free, secure static website hosting with unlimited bandwidth. Custom project domains default to <code>*.pages.dev</code> subdomains unless a custom domain is purchased and connected.</p>
+            </div>
+          </details>
+
+        </div>
+      </div>
+
+      <!-- Step 4: Backup / Contingency System -->
+      <div class="process-row">
+        <div class="process-step">
+          <span class="step-number">Step 04</span>
+          <h2 class="step-title">Backup System</h2>
+          <p class="step-desc">Version control for custom static and AI-generated builds.</p>
+        </div>
+        <div class="tools-container">
+
+          <details>
+            <summary>GitHub Branches & Repositories</summary>
+            <div class="tool-content">
+              <p>Essential backup pipeline for non-builder sites. Allows hosting production code on the main branch while testing modifications safely on separate development branches before merging.</p>
+            </div>
+          </details>
+
+        </div>
+      </div>
+
+      <!-- Step 5: Ordering System -->
+      <div class="process-row">
+        <div class="process-step">
+          <span class="step-number">Step 05</span>
+          <h2 class="step-title">Ordering System</h2>
+          <p class="step-desc">Workflows structuring how customers select items and submit purchases.</p>
+        </div>
+        <div class="tools-container">
+
+          <details>
+            <summary>Website Catalogue Only</summary>
+            <div class="tool-content">
+              <p><strong>Workflow:</strong> View Catalog &rarr; Screenshot/List Items &rarr; Submit Order in Instagram DMs &rarr; Confirmation & Payment &rarr; Status Updates.</p>
+              <p><strong>Analysis:</strong> Centralizes order handling in Instagram DMs. Requires manual listing/screenshots from buyers, which adds steps compared to standard e-commerce flows.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Website Catalogue and Cart</summary>
+            <div class="tool-content">
+              <p><strong>Workflow:</strong> View Catalog &rarr; Build Cart &rarr; Submit Order Request &rarr; Confirm & Pay via Instagram DMs &rarr; Status Updates.</p>
+              <p><strong>Analysis:</strong> Improves customer UX through a familiar cart layout. An automated email invoice is sent to both buyer and seller; the customer forwards the invoice to Instagram DMs to finalize payment.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Complete E-Commerce Website</summary>
+            <div class="tool-content">
+              <p><strong>Workflow:</strong> View Catalog &rarr; Build Cart &rarr; Checkout & Pay Directly on Site.</p>
+              <p><strong>Analysis:</strong> Full online purchasing flow via direct payment details (GCash/Bank QR). Standard platforms like Wix or WordPress may charge extra transaction fees or default to international gateways like PayPal.</p>
+            </div>
+          </details>
+
+        </div>
+      </div>
+
+      <!-- Step 6: Payment System -->
+      <div class="process-row">
+        <div class="process-step">
+          <span class="step-number">Step 06</span>
+          <h2 class="step-title">Payment System</h2>
+          <p class="step-desc">Direct financial settlement channels.</p>
+        </div>
+        <div class="tools-container">
+
+          <details>
+            <summary>GCash</summary>
+            <div class="tool-content">
+              <p>Accessible mobile wallet payment method supported via direct phone number entry or scanned QR codes.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Bank Transfer</summary>
+            <div class="tool-content">
+              <p>Direct bank-to-bank settlement method supported via mobile banking apps, account numbers, or Instapay QR codes.</p>
+            </div>
+          </details>
+
+        </div>
+      </div>
+
+      <!-- Step 7: Stock Reservation & Conflict Handling -->
+      <div class="process-row">
+        <div class="process-step">
+          <span class="step-number">Step 07</span>
+          <h2 class="step-title">Stock Reservation</h2>
+          <p class="step-desc">Strategies for managing inventory allocation and order contention.</p>
+        </div>
+        <div class="tools-container">
+
+          <details>
+            <summary>Website Automation</summary>
+            <div class="tool-content">
+              <p>Real-time synchronization between the store front-end and master inventory Google Sheets, preventing out-of-stock items from being ordered during high-traffic drop releases.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Manual Management</summary>
+            <div class="tool-content">
+              <p>Operates on a strict "first-to-pay, first-served" rule. Involves manual reservation tracking in DMs, which is effective for low-to-moderate starting transaction volumes.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Transparency Page / Order Tracker</summary>
+            <div class="tool-content">
+              <p>An automated backend progress tracker or customer-facing order status sheet showing real-time reservation and payment verifications to quickly resolve stock disputes.</p>
+            </div>
+          </details>
+
+        </div>
+      </div>
+
+      <!-- Step 8: Invoicing -->
+      <div class="process-row">
+        <div class="process-step">
+          <span class="step-number">Step 08</span>
+          <h2 class="step-title">Invoicing Systems</h2>
+          <p class="step-desc">Document generation tools for customer receipts and purchase records.</p>
+        </div>
+        <div class="tools-container">
+
+          <details>
+            <summary>Free Invoice Generator</summary>
+            <div class="tool-content">
+              <p>Simple browser-based tool supporting top-left logo uploads, multi-currency support, and standard minimal templates (Classic/Slate). Requires manual item input.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Zoho Invoice</summary>
+            <div class="tool-content">
+              <p>Offers 4 layout color themes and structure adjustments. Includes small Zoho footer branding on generated PDFs.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Canva Invoices</summary>
+            <div class="tool-content">
+              <p>Fully customizable and brand-aligned layouts without third-party logos. Requires manual text/price adjustments per order and lacks auto-calculating totals.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>AI-Automated Invoicing</summary>
+            <div class="tool-content">
+              <p>Custom script/automation connected directly to the master inventory Google Sheet, generating pre-formatted invoices automatically upon new order entries.</p>
+            </div>
+          </details>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
